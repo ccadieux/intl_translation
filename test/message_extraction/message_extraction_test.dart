@@ -2,7 +2,8 @@
 // for details. All rights reserved. Use of this source code is governed by a
 // BSD-style license that can be found in the LICENSE file.
 
-@Timeout(const Duration(seconds: 60))
+@Timeout(const Duration(seconds: 180))
+
 library message_extraction_test;
 
 import 'package:test/test.dart';
@@ -87,6 +88,8 @@ void copyFilesToTempDirectory() {
     asTestDirPath('embedded_plural_text_before.dart'),
     asTestDirPath('embedded_plural_text_after.dart'),
     asTestDirPath('print_to_list.dart'),
+    asTestDirPath('dart_list.txt'),
+    asTestDirPath('arb_list.txt'),
     '.packages' // Copy this so that package test can find the imports
   ];
   for (var filename in files) {
@@ -147,8 +150,8 @@ Future<ProcessResult> extractMessages(ProcessResult previousResult) =>
     run(previousResult, [
       asTestDirPath('../../bin/extract_to_arb.dart'),
       '--suppress-warnings',
-      'sample_with_messages.dart',
-      'part_of_sample_with_messages.dart'
+      '--sources-list-file',
+      'dart_list.txt'
     ]);
 
 Future<ProcessResult> generateTranslationFiles(ProcessResult previousResult) =>
@@ -164,11 +167,10 @@ Future<ProcessResult> generateCodeFromTranslation(
       deferredLoadArg,
       '--' + (useJson ? '' : 'no-') + 'json',
       '--generated-file-prefix=foo_',
-      'sample_with_messages.dart',
-      'part_of_sample_with_messages.dart',
-      'translation_fr.arb',
-      'french2.arb',
-      'translation_de_DE.arb'
+      '--sources-list-file',
+      'dart_list.txt',
+      '--translations-list-file',
+      'arb_list.txt'
     ]);
 
 Future<ProcessResult> runAndVerify(ProcessResult previousResult) {

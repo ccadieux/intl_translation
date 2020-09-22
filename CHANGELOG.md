@@ -1,6 +1,19 @@
+## 0.17.10+1
+  * Generate code that passes analysis with `implicit-casts: false`.
+  * Allow use of `MessageExtraction` and `MessageGeneration` without `File`.
+  * Move arb generation from bin to lib so it's available to external packages.
+  * Update analyzer dependency.
+
+## 0.17.10
+  * Update petitparser dependency.
+
+## 0.17.9
+  * Fix pub complaint trying to precompile a library file in bin by moving that file to lib/src.
+
 ## 0.17.8
-  * Added --force-generate-name to force extract_to_arb to generate
-    a class_method name in case the message does not provide one
+  * Add --sources-list-files and --translations-list-file to ARB handling
+    utilities to read the input names from files. This is useful for large
+    numbers of inputs.
 
 ## 0.17.7
   * Fixed the pubspec to allow intl version 0.16.*
